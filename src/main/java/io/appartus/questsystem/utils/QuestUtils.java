@@ -1,9 +1,15 @@
 package io.appartus.questsystem.utils;
 
 import io.appartus.questsystem.Quests.Type1;
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.block.tileentity.TileEntity;
 import org.spongepowered.api.entity.living.player.Player;
+import org.spongepowered.api.item.ItemType;
+import org.spongepowered.api.item.ItemTypes;
+import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
+
+import java.util.Optional;
 
 import static org.spongepowered.api.data.type.HandTypes.MAIN_HAND;
 
@@ -40,5 +46,15 @@ public class QuestUtils {
             Line ++;
         }
         return true;
+    }
+
+    public void giveItem(Player player, String Item, int count){
+        ItemStack itemStack;
+        itemStack = ItemStack.of(ItemTypes.DIAMOND, 1);
+        Optional<ItemType> optionalItemType;
+        optionalItemType = Sponge.getRegistry().getType(ItemType.class, Item);
+        if (optionalItemType.isPresent()) itemStack = ItemStack.of(optionalItemType.get(), count);
+        player.getInventory().offer(itemStack);
+
     }
 }
