@@ -52,7 +52,8 @@ public class QuestUtils {
     }
 
     public void giveItem(Player player, ItemStack item){
-            player.getInventory().offer(item);
+        if (item == null) return;
+        player.getInventory().offer(item);
 
     }
 
@@ -61,6 +62,8 @@ public class QuestUtils {
     }
 
     public Boolean HaveItemInHand(Player player,ItemStack item){
+        if(item == null) return false;
+
         if(player.getItemInHand(HandTypes.MAIN_HAND).isPresent()){
             return item.equalTo(player.getItemInHand(HandTypes.MAIN_HAND).get());
         }
@@ -68,6 +71,9 @@ public class QuestUtils {
     }
 
     public ItemStack StringToItemStack(String item,int count){
+        if (item == null) return null;
+        if (item == "") return null;
+
         if(Sponge.getRegistry().getType(ItemType.class, item).isPresent()){
             return ItemStack.of(Sponge.getRegistry().getType(ItemType.class, item).get(), count);
         }
@@ -75,7 +81,6 @@ public class QuestUtils {
     }
 
     public String LoadQuests(){
-
        return config.getNode("Welcome").getString();
     }
 }

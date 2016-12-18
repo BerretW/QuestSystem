@@ -17,17 +17,18 @@ public class TileUtils {
 
 
     public String getSignLine(TileEntity entity, int line) {
-        if (!isSign(entity)) return "";
+        if (!isSign(entity)) return null;
 
-        String Type;
+        String lineString;
+
         Optional<SignData> data = entity.getOrCreate(SignData.class);
         if (data.isPresent()) {
-            Type = data.get().lines().get(line).toString();
-            Type = Type.substring(5,Type.length());
-            Type = Type.replace("}", "");
-            return Type;
+            lineString = data.get().lines().get(line).toString();
+            lineString = lineString.substring(5,lineString.length());
+            lineString = lineString.replace("}", "");
+            return lineString;
         }
-        return "";
+        return null;
     }
 
     public boolean setSignLine(TileEntity entity, int line, Text text) {
