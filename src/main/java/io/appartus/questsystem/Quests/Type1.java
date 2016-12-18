@@ -4,7 +4,6 @@ import org.spongepowered.api.block.tileentity.TileEntity;
 import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
-import io.appartus.questsystem.utils.ItemInHand;
 import io.appartus.questsystem.utils.TileUtils;
 
 /**
@@ -12,8 +11,6 @@ import io.appartus.questsystem.utils.TileUtils;
  */
 public class Type1 {
     TileUtils tileutils = new TileUtils();
-    ItemInHand inhand = new ItemInHand();
-    int LevelNeeded;
 
 
     public void runQuest(Player player, TileEntity entity) {
@@ -35,14 +32,6 @@ public class Type1 {
         return Integer.parseInt(tileutils.getSignLine(entity, 2));
     }
 
-    private boolean HasItem(Player player, String Item){
-        if(inhand.getItemName(player) == Item) return true;
-        return false;
-    }
-    private boolean HasCount(Player player, int Count){
-        if(inhand.getItemCount(player) == Count) return true;
-        return false;
-    }
     private boolean HasPermission(Player player, String permission){
         if(player.hasPermission(permission)) return true;
         return false;
