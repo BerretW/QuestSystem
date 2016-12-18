@@ -17,12 +17,13 @@ import java.util.Optional;
 import static org.spongepowered.api.data.type.HandTypes.MAIN_HAND;
 
 /**
+ * aa
  * Created by Alois on 12.12.2016.
  */
 public class QuestUtils {
-    TileUtils tileutils = new TileUtils();
-    questsystem plugin = new questsystem();
-    CommentedConfigurationNode config = plugin.configNode;
+    private TileUtils tileutils = new TileUtils();
+    private questsystem plugin = new questsystem();
+    private CommentedConfigurationNode config = plugin.configNode;
 
     public String getQuestType(TileEntity entity){
         return tileutils.getSignLine(entity,3);
@@ -51,29 +52,26 @@ public class QuestUtils {
     }
 
     public void giveItem(Player player, ItemStack item){
-        //ItemStack itemStack;
-        //Optional<ItemType> optionalItemType;
-        //optionalItemType = Sponge.getRegistry().getType(ItemType.class, Item);
-
-            //itemStack = ItemStack.of(Sponge.getRegistry().getType(ItemType.class, Item).get(), count);
             player.getInventory().offer(item);
 
     }
 
-    public Boolean HasItemInHand(Player player,ItemStack item){
-        //Optional<ItemStack> inHand;
-        if (player.getItemInHand(HandTypes.MAIN_HAND).isPresent()) {
-            //return player.getItemInHand(HandTypes.MAIN_HAND).get();
-            player.sendMessage(Text.of("Have in Hand ", player.getItemInHand(HandTypes.MAIN_HAND).get().toString()));
-            player.sendMessage(Text.of("Need ", item.toString()));
+    public void DeleteItemFromHand(Player player){
+        player.setItemInHand(HandTypes.MAIN_HAND, null);
+    }
 
+    public Boolean HaveItemInHand(Player player,ItemStack item){
+        if(player.getItemInHand(HandTypes.MAIN_HAND).isPresent()){
             return item.equalTo(player.getItemInHand(HandTypes.MAIN_HAND).get());
         }
         return false;
     }
 
     public ItemStack StringToItemStack(String item,int count){
-        return ItemStack.of(Sponge.getRegistry().getType(ItemType.class, item).get(), count);
+        if(Sponge.getRegistry().getType(ItemType.class, item).isPresent()){
+            return ItemStack.of(Sponge.getRegistry().getType(ItemType.class, item).get(), count);
+        }
+        return null;
     }
 
     public String LoadQuests(){

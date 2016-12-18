@@ -15,11 +15,12 @@ import javax.smartcardio.TerminalFactory;
 
 
 /**
+ * onIteractBlock event functions
  * Created by Alois on 12.12.2016.
  */
 public class onInteractBlock {
-    TileUtils utils = new TileUtils();
-    QuestUtils questUtils = new QuestUtils();
+    private TileUtils utils = new TileUtils();
+    private QuestUtils questUtils = new QuestUtils();
     //ItemInHand itemInHand = new ItemInHand();
 
 
@@ -40,9 +41,11 @@ public class onInteractBlock {
                 } else{
                     //player.sendMessage(Text.of(questUtils.LoadQuests()));
 
-                    if(questUtils.HasItemInHand(player, questUtils.StringToItemStack(utils.getSignLine(tile, 0),1))){
+                    if(questUtils.HaveItemInHand(player, questUtils.StringToItemStack(utils.getSignLine(tile, 0),1))){
+
                         questUtils.giveItem(player,questUtils.StringToItemStack("minecraft:diamond",1));
-                        player.setItemInHand(HandTypes.MAIN_HAND, null);
+
+                        questUtils.DeleteItemFromHand(player);
 
                     }
                 }
