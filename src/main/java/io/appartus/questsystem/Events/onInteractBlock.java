@@ -26,7 +26,7 @@ public class onInteractBlock {
 
     @Listener
     public void onInteract(InteractBlockEvent.Primary event, @First Player player){
-        questUtils.runQuest(player,1);
+        questUtils.runQuest(player,2);
 
 
 

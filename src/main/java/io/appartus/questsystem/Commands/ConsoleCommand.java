@@ -6,7 +6,8 @@ import org.spongepowered.api.Sponge;
  * Created by Alois on 13.12.2016.
  */
 public class ConsoleCommand {
-    public void RunCommand(String Command){
+
+    public static void RunCommand(String Command){
         Sponge.getCommandManager().process(Sponge.getServer().getConsole(), Command);
     }
 }

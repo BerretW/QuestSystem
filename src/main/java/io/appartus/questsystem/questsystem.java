@@ -58,6 +58,7 @@ public class questsystem {
 
 
     private static Logger logger;
+
     @Inject
     public questsystem(Logger logger) {
     questsystem.logger = logger;
@@ -68,6 +69,10 @@ public class questsystem {
     }
     public static CommentedConfigurationNode configNode;
 
+    public static CommentedConfigurationNode getConfigNode(){
+        return configNode;
+    }
+
     @Inject
     @DefaultConfig(sharedRoot = true)
     public File config = null;
@@ -76,9 +81,7 @@ public class questsystem {
     @DefaultConfig(sharedRoot = true)
     public ConfigurationLoader<CommentedConfigurationNode> configLoader = null;
 
-    public static CommentedConfigurationNode getConfigNode(){
-        return configNode;
-    }
+
 
     @Listener
     public void onInit(GameInitializationEvent event){
@@ -86,20 +89,20 @@ public class questsystem {
             if(!config.exists()){
                 config.createNewFile();
                 configNode = configLoader.load();
-                Quest1_Req.add("Level|30");
-                Quest1_Rew.add("Command|say Hrac si prave udelal prvni Tier");
-                Quest1_Rew.add("Command|pm users @p group add MAT1");
+                Quest1_Req.add("Level||30");
+                Quest1_Rew.add("Command||say Hrac si prave udelal prvni Tier");
+                Quest1_Rew.add("Command||pm users @p group add MAT1");
                 configNode.getNode("Quests","1","Quest Name").setValue("Learn Mystical Agriculture T2");
                 configNode.getNode("Quests","1","Quest Type").setValue(1);
                 configNode.getNode("Quests","1","Quest Requirements").setValue(Quest1_Req);
                 configNode.getNode("Quests","1","Quest Reward").setValue(Quest1_Rew);
                 configNode.getNode("Quests","1","Quest Lore").setValue("Pro nauceni techto vedomosti je vzadovani mit level 30");
 
-                Quest2_Req.add("Level|30");
-                Quest2_Req.add("Item|minecraft:stone");
-                Quest2_Rew.add("Command|say Hrac si prave udelal druhy Tier");
-                Quest2_Rew.add("Command|pm users @p group add MAT2");
-                Quest2_Rew.add("Item|minecraft:diamond");
+                Quest2_Req.add("Level||30");
+                Quest2_Req.add("Item||minecraft:stone|1");
+                Quest2_Rew.add("Command||say Hrac si prave udelal druhy Tier");
+                Quest2_Rew.add("Command||pm users @p group add MAT2");
+                Quest2_Rew.add("Item||minecraft:diamond|1");
                 configNode.getNode("Quests","2","Quest Name").setValue("Learn Mystical Agriculture T2");
                 configNode.getNode("Quests","2","Quest Type").setValue(2);
                 configNode.getNode("Quests","2","Quest Requirements").setValue(Quest2_Req);

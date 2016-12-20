@@ -36,10 +36,7 @@ public class Type1 {
         if(player.hasPermission(permission)) return true;
         return false;
     }
-    private int HasLevel(Player player){
-        if(HaveLevel(player)  == 10) return 10;
-        return player.get(Keys.EXPERIENCE_LEVEL).get();
-    }
+
 
 
 
