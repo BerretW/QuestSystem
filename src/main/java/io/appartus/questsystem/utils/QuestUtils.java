@@ -27,7 +27,6 @@ import java.util.function.Function;
 public class QuestUtils {
     private TileUtils tileutils = new TileUtils();
 
-    //private ConsoleCommand consolecommand = new ConsoleCommand();
 
     private Logger getLogger() {
         return questsystem.getLogger();
