@@ -29,7 +29,7 @@ import org.spongepowered.api.text.Text;
 /** Inital file
  * Created by Alois on 11.12.2016.
  */
-@Plugin(id="appartusquestsystem",name = "AppartusQuestSystem", version = "0.0.1")
+@Plugin(id="appartusquestsystem",name = "AppartusQuestSystem", version = "1.0")
 public class questsystem {
     public static final Key<Value<Boolean>> IS_COMMAND_SIGN = KeyFactory.makeSingleKey(new TypeToken<Boolean>() {} , new TypeToken<Value<Boolean>>() {}, DataQuery.of("IsCommandSign"), "commandsigns:is_command_sign", "Whether a sign is a CommandSign");
     private List<String> Quest1_Req = new ArrayList<>();
