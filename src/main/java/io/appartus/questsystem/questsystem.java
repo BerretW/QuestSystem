@@ -28,34 +28,19 @@ import java.util.function.Function;
 
 import org.slf4j.Logger;
 
-/**
+/** Inital file
  * Created by Alois on 11.12.2016.
  */
 @Plugin(id="appartusquestsystem",name = "AppartusQuestSystem", version = "0.0.1")
 public class questsystem {
-
-
-    public static String[][][] questlist;
-
-
     public static final Key<Value<Boolean>> IS_COMMAND_SIGN = KeyFactory.makeSingleKey(new TypeToken<Boolean>() {} , new TypeToken<Value<Boolean>>() {}, DataQuery.of("IsCommandSign"), "commandsigns:is_command_sign", "Whether a sign is a CommandSign");
-
-    public static String[]QuestIDs;
-
-    public static int Quest_ID;
-    public static String Quest_Name;
-    public static String Quest_Req;
-    public static String Quest_Rew1;
-    public static String Quest_Rew2;
-    public static String Quest_Rev3;
-
-    private List<String> Quest1_Req = new ArrayList<String>();
-    private List<String> Quest2_Req = new ArrayList<String>();
-    private List<String> Quest1_Rew = new ArrayList<String>();
-    private List<String> Quest2_Rew = new ArrayList<String>();
+    private List<String> Quest1_Req = new ArrayList<>();
+    private List<String> Quest2_Req = new ArrayList<>();
+    private List<String> Quest1_Rew = new ArrayList<>();
+    private List<String> Quest2_Rew = new ArrayList<>();
+    public static String Quest_Creator_Permission = "AQS.creator";
     @Inject
     Game game;
-
 
     private static Logger logger;
 
@@ -67,7 +52,7 @@ public class questsystem {
     public static Logger getLogger(){
         return logger;
     }
-    public static CommentedConfigurationNode configNode;
+    private static CommentedConfigurationNode configNode;
 
     public static CommentedConfigurationNode getConfigNode(){
         return configNode;
@@ -75,11 +60,11 @@ public class questsystem {
 
     @Inject
     @DefaultConfig(sharedRoot = true)
-    public File config = null;
+    private File config = null;
 
     @Inject
     @DefaultConfig(sharedRoot = true)
-    public ConfigurationLoader<CommentedConfigurationNode> configLoader = null;
+    private ConfigurationLoader<CommentedConfigurationNode> configLoader = null;
 
 
 
@@ -87,24 +72,30 @@ public class questsystem {
     public void onInit(GameInitializationEvent event){
         try {
             if(!config.exists()){
-                config.createNewFile();
+                if (config.createNewFile()) getLogger().info("Config File created");
+                else getLogger().info("Error with creating config file");
                 configNode = configLoader.load();
                 Quest1_Req.add("Level||30");
+                Quest1_Req.add("PermNot||appartus.MAT1");
+
                 Quest1_Rew.add("Command||say Hrac si prave udelal prvni Tier");
-                Quest1_Rew.add("Command||pm users @p group add MAT1");
+                Quest1_Rew.add("Command||pm users @p add group MAT1");
+                Quest1_Rew.add("Command||pm users @p set permission appartus.MAT1");
                 configNode.getNode("Quests","1","Quest Name").setValue("Learn Mystical Agriculture T2");
-                configNode.getNode("Quests","1","Quest Type").setValue(1);
                 configNode.getNode("Quests","1","Quest Requirements").setValue(Quest1_Req);
                 configNode.getNode("Quests","1","Quest Reward").setValue(Quest1_Rew);
                 configNode.getNode("Quests","1","Quest Lore").setValue("Pro nauceni techto vedomosti je vzadovani mit level 30");
 
                 Quest2_Req.add("Level||30");
                 Quest2_Req.add("Item||minecraft:stone|1");
+                Quest2_Req.add("PermNot||appartus.MAT2");
+                Quest2_Req.add("Perm||appartus.MAT1");
+
                 Quest2_Rew.add("Command||say Hrac si prave udelal druhy Tier");
-                Quest2_Rew.add("Command||pm users @p group add MAT2");
+                Quest2_Rew.add("Command||pm users @p add group MAT2");
+                Quest2_Rew.add("Command||pm users @p set permission appartus.MAT2");
                 Quest2_Rew.add("Item||minecraft:diamond|1");
                 configNode.getNode("Quests","2","Quest Name").setValue("Learn Mystical Agriculture T2");
-                configNode.getNode("Quests","2","Quest Type").setValue(2);
                 configNode.getNode("Quests","2","Quest Requirements").setValue(Quest2_Req);
                 configNode.getNode("Quests","2","Quest Reward").setValue(Quest2_Rew);
                 configNode.getNode("Quests","2","Quest Lore").setValue("Pro nauceni techto vedomosti je vzadovani mit level 30");
@@ -125,9 +116,9 @@ public class questsystem {
         Sponge.getDataManager().register(SpongeIsCommandSignData.class, ImmutableSpongeIsCommandSignData.class, new IsCommandSignDataBuilder());
     }
 
-    public void LoadConfig(CommentedConfigurationNode config){
+    public void LoadConfig(){
         try{
-            config = configLoader.load();
+            configNode = configLoader.load();
         } catch (IOException e){
             getLogger().info("Failed to load config");
         }
