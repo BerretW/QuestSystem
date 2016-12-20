@@ -59,6 +59,7 @@ public class TileUtils {
     }
 
     public boolean getSignData(TileEntity tile){
+        if (!isSign(tile)) return false;
 
         Optional<IsCommandSignData> isCommandSignData;
 

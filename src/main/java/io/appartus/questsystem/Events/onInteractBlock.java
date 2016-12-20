@@ -1,5 +1,6 @@
 package io.appartus.questsystem.Events;
 
+import io.appartus.questsystem.questsystem;
 import org.spongepowered.api.block.tileentity.TileEntity;
 import org.spongepowered.api.data.manipulator.mutable.tileentity.SignData;
 import org.spongepowered.api.entity.living.player.Player;
@@ -18,56 +19,37 @@ import java.util.Optional;
  * Created by Alois on 12.12.2016.
  */
 public class onInteractBlock {
-    private TileUtils utils = new TileUtils();
+    private TileUtils tileUtils = new TileUtils();
     private QuestUtils questUtils = new QuestUtils();
+    //private questsystem plugin = new questsystem();
+
 
     @Listener
     public void onInteract(InteractBlockEvent.Primary event, @First Player player){
-        if (event.getTargetBlock().getLocation().isPresent()) {
-            Location<World> location = event.getTargetBlock().getLocation().get();
+        questUtils.runQuest(player,1);
 
-            if (location.getTileEntity().isPresent()) {
-                TileEntity tile = location.getTileEntity().get();
-                if(utils.haveSignData(tile)){
-                    player.sendMessage(Text.of("Je tam ",utils.getSignData(tile)));
-                }
-                if(utils.getSignData(tile)) {
 
-                    Optional<SignData> data = tile.getOrCreate(SignData.class);
-                    if (data.isPresent()) {
-                        player.sendMessage(Text.of(data.get().lines().get(0).toString()));
-                    }
 
-                    questUtils.giveItem(player, questUtils.StringToItemStack(utils.getSignLine(tile,0) , 1));
 
-                } else{
+        //player.sendMessage(Text.of(plugin.QuestType));
 
-                    if(questUtils.HaveItemInHand(player, questUtils.StringToItemStack(utils.getSignLine(tile, 0),1))){
-                        questUtils.giveItem(player,questUtils.StringToItemStack("minecraft:diamond",1));
-
-                        questUtils.DeleteItemFromHand(player);
-
-                    }
-                }
-            }
-        }
+        //player.sendMessage(Text.of(plugin.rootNode().getNode("Welcome").getString()));
     }
+
     @Listener
     public void onInteract2(InteractBlockEvent.Secondary event, @First Player player){
         if (event.getTargetBlock().getLocation().isPresent()) {
             Location<World> location = event.getTargetBlock().getLocation().get();
             if (location.getTileEntity().isPresent()) {
                 TileEntity tile = location.getTileEntity().get();
-                if(utils.getSignData(tile)){
-                    utils.setSignData(tile,false);
-                    player.sendMessage(Text.of("Nastaveno na ", utils.getSignData(tile)));
+                if(tileUtils.getSignData(tile)){
+                    tileUtils.setSignData(tile,false);
+                    player.sendMessage(Text.of("Nastaveno na ", tileUtils.getSignData(tile)));
                 } else {
-                    utils.setSignData(tile,true);
-                    player.sendMessage(Text.of("Nastaveno na ", utils.getSignData(tile)));
+                    tileUtils.setSignData(tile,true);
+                    player.sendMessage(Text.of("Nastaveno na ", tileUtils.getSignData(tile)));
                 }
             }
         }
     }
-
-
 }
