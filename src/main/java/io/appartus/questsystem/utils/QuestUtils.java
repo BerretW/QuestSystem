@@ -239,10 +239,7 @@ public class QuestUtils {
     private Boolean HaveItemInHand(Player player,ItemStack item){
         if(item == null) return false;
 
-        if(player.getItemInHand(HandTypes.MAIN_HAND).isPresent() && item.equalTo(player.getItemInHand(HandTypes.MAIN_HAND).get())){
-            return true;
-        }
-        return false;
+        return player.getItemInHand(HandTypes.MAIN_HAND).isPresent() && item.equalTo(player.getItemInHand(HandTypes.MAIN_HAND).get());
     }
 
 

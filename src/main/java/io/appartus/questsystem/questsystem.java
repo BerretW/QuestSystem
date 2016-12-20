@@ -1,32 +1,30 @@
 package io.appartus.questsystem;
 
-import com.google.common.eventbus.Subscribe;
 import com.google.common.reflect.TypeToken;
 import com.google.inject.Inject;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import io.appartus.questsystem.Events.*;
 import io.appartus.questsystem.data.iscommandsign.*;
-import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
-import org.slf4j.LoggerFactory;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.Sponge;
+import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.config.DefaultConfig;
 import org.spongepowered.api.data.DataQuery;
 import org.spongepowered.api.data.key.Key;
 import org.spongepowered.api.data.key.KeyFactory;
 import org.spongepowered.api.data.value.mutable.Value;
 import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.game.GameReloadEvent;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.plugin.Plugin;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 
 import org.slf4j.Logger;
+import org.spongepowered.api.text.Text;
 
 /** Inital file
  * Created by Alois on 11.12.2016.
@@ -66,7 +64,11 @@ public class questsystem {
     @DefaultConfig(sharedRoot = true)
     private ConfigurationLoader<CommentedConfigurationNode> configLoader = null;
 
-
+    @Listener
+    public void onReload(GameReloadEvent event){
+        LoadConfig();
+        getLogger().info("Config ReLoaded");
+    }
 
     @Listener
     public void onInit(GameInitializationEvent event){
@@ -102,7 +104,7 @@ public class questsystem {
                 configLoader.save(configNode);
                 getLogger().info("Config created");
             }
-            configNode = configLoader.load();
+            LoadConfig();
             getLogger().info("Config Loaded");
 
         }

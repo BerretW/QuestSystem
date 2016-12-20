@@ -81,8 +81,7 @@ public class TileUtils {
     }
 
     public boolean isSign(TileEntity tile){
-        if(tile != null && tile.getType().equals(TileEntityTypes.SIGN)) return true;
-        return false;
+        return tile != null && tile.getType().equals(TileEntityTypes.SIGN);
     }
 
 }
