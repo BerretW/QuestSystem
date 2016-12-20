@@ -236,7 +236,7 @@ public class QuestUtils {
         player.setItemInHand(HandTypes.MAIN_HAND, null);
     }
 
-    private Boolean HaveItemInHand(Player player,ItemStack item){
+    public Boolean HaveItemInHand(Player player,ItemStack item){
         if(item == null) return false;
 
         return player.getItemInHand(HandTypes.MAIN_HAND).isPresent() && item.equalTo(player.getItemInHand(HandTypes.MAIN_HAND).get());
@@ -251,7 +251,7 @@ public class QuestUtils {
     }
 
 
-    private ItemStack StringToItemStack(String item,int count){
+    private ItemStack StringToItemStack(String item, int count){
         if (item == null) return null;
         if (item.equals("")) return null;
 

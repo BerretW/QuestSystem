@@ -4,6 +4,7 @@ import com.google.common.reflect.TypeToken;
 import com.google.inject.Inject;
 import io.appartus.questsystem.Events.*;
 import io.appartus.questsystem.data.iscommandsign.*;
+import io.appartus.questsystem.utils.QuestUtils;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 import org.spongepowered.api.Game;
@@ -14,9 +15,13 @@ import org.spongepowered.api.data.DataQuery;
 import org.spongepowered.api.data.key.Key;
 import org.spongepowered.api.data.key.KeyFactory;
 import org.spongepowered.api.data.value.mutable.Value;
+import org.spongepowered.api.entity.Item;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.GameReloadEvent;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
+import org.spongepowered.api.item.ItemType;
+import org.spongepowered.api.item.ItemTypes;
+import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.plugin.Plugin;
 import java.io.File;
 import java.io.IOException;
@@ -37,6 +42,11 @@ public class questsystem {
     private List<String> Quest1_Rew = new ArrayList<>();
     private List<String> Quest2_Rew = new ArrayList<>();
     public static String Quest_Creator_Permission = "AQS.creator";
+    public static ItemStack Creator_Tool = ItemStack.of(ItemTypes.CARROT_ON_A_STICK,1) ;
+
+
+
+
     @Inject
     Game game;
 
@@ -124,6 +134,15 @@ public class questsystem {
         } catch (IOException e){
             getLogger().info("Failed to load config");
         }
+    }
+    public ItemStack StringToItemStack(String item, int count){
+        if (item == null) return null;
+        if (item.equals("")) return null;
+
+        if(Sponge.getRegistry().getType(ItemType.class, item).isPresent()){
+            return ItemStack.of(Sponge.getRegistry().getType(ItemType.class, item).get(), count);
+        }
+        return null;
     }
 
 

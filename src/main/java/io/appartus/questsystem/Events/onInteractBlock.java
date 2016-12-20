@@ -44,6 +44,7 @@ public class onInteractBlock {
             if (tileUtils.haveSignData(tile)) {
                 int i;
                 if (tileUtils.getSignData(tile)) {
+                    event.setCancelled(true);
                     try {
                         i = Integer.parseInt(tileUtils.getSignLine(tile, 3));
                         getLogger().info(Integer.toString(i));
@@ -54,6 +55,7 @@ public class onInteractBlock {
                 }
             }
         }
+
     }
 
 
@@ -61,8 +63,9 @@ public class onInteractBlock {
     public void Creator_onInteract(InteractBlockEvent.Secondary event, @First Player player){
         if (event.getTargetBlock().getLocation().isPresent()) {
             Location<World> location = event.getTargetBlock().getLocation().get();
-            if (location.getTileEntity().isPresent() && player.hasPermission(questsystem.Quest_Creator_Permission)) {
+            if (location.getTileEntity().isPresent() && player.hasPermission(questsystem.Quest_Creator_Permission) && questUtils.HaveItemInHand(player,questsystem.Creator_Tool)) {
                 TileEntity tile = location.getTileEntity().get();
+
                 if(!tileUtils.isSign(tile)) return;
                 if(tileUtils.getSignData(tile)){
                     tileUtils.setSignData(tile,false);
