@@ -1,7 +1,6 @@
 package io.appartus.questsystem.utils;
 
-import io.appartus.questsystem.Commands.ConsoleCommand;
-import io.appartus.questsystem.Quests.Type1;
+
 import io.appartus.questsystem.questsystem;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
@@ -12,18 +11,14 @@ import org.spongepowered.api.data.key.Keys;
 import org.spongepowered.api.data.type.HandTypes;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.item.ItemType;
-import org.spongepowered.api.item.ItemTypes;
 import org.spongepowered.api.item.inventory.ItemStack;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 
-import static org.spongepowered.api.data.type.HandTypes.MAIN_HAND;
 
 /**
  * aa

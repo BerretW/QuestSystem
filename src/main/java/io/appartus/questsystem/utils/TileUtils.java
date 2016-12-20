@@ -1,6 +1,5 @@
 package io.appartus.questsystem.utils;
 
-import io.appartus.questsystem.Quests.Type1;
 import io.appartus.questsystem.data.iscommandsign.IsCommandSignData;
 import io.appartus.questsystem.data.iscommandsign.SpongeIsCommandSignData;
 import org.spongepowered.api.block.tileentity.TileEntity;
