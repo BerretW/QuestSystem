@@ -86,7 +86,7 @@ public class QuestUtils {
                         Remove_Level = Integer.parseInt(Arg);
 
                     } else {
-                        player.sendMessage(Text.of(TextColors.RED, "Nemas dostatecnou uroven pro tento quest"));
+                        player.sendMessage(Text.of(TextColors.RED, "You not have enough Level for this Quest"));
                         getLogger().info("Quest " + QuestID + ": Low level");
                     }
                     Req_S.add(ok);
@@ -103,7 +103,7 @@ public class QuestUtils {
                     ok = HaveItemInHand(player, Item);
                     if (ok) itemsToRemove.add(Item);
                     else {
-                        player.sendMessage(Text.of(TextColors.RED, "Nemáš " + Item.getItem().getName() + " pro splneni tohoto questu"));
+                        player.sendMessage(Text.of(TextColors.RED, "Don't have" + Item.getItem().getName() + " for this quest"));
                         //player.sendMessage(Text.of(Quest_Lore));
                         getLogger().info("Quest " + QuestID + ": Wrong or No Item");
                     }
@@ -113,7 +113,7 @@ public class QuestUtils {
                 case "Perm":{
                     if(player.hasPermission(Arg)) Req_S.add(true);
                     else {
-                        player.sendMessage(Text.of(TextColors.RED, "Nemas potrebna opraveneni k tomuto questu"));
+                        player.sendMessage(Text.of(TextColors.RED, "Don't have permissions for this quest"));
                         getLogger().info("Quest " + QuestID + ": Not have permission for this quest");
                         Req_S.add(false);
                     }
@@ -122,7 +122,7 @@ public class QuestUtils {
                 case "PermNot":{
                     if(!player.hasPermission(Arg)) Req_S.add(true);
                     else {
-                        player.sendMessage(Text.of(TextColors.RED, "Mas opravneni ktere bys mit nemel!"));
+                        player.sendMessage(Text.of(TextColors.RED, "You have restricted Permissions for this quest"));
                         getLogger().info("Quest " + QuestID + ": Have not allowed permission for this quest");
                         Req_S.add(false);
                     }
@@ -140,7 +140,7 @@ public class QuestUtils {
                     getLogger().info("Quest" + QuestID + ", remove " + Remove_Level + " from player " + player.getName());
                 }
                 else {
-                    player.sendMessage(Text.of("Nekde nastala chyba a uroven takovou jako pred chvilkou"));
+                    //player.sendMessage(Text.of("Nekde nastala chyba a uroven takovou jako pred chvilkou"));
                     getLogger().info("Error in quest " + QuestID + ", player dont have Level");
                     rewlist.clear();
                     return false;
@@ -153,7 +153,7 @@ public class QuestUtils {
                     getLogger().info("Hraci byl odebran predmet " + item.getItem().getName());
                 }
                 else {
-                    player.sendMessage(Text.of("Nekde nastala chyba a v ruce nedrziz to co pred chvilkou"));
+                    //player.sendMessage(Text.of("Nekde nastala chyba a v ruce nedrziz to co pred chvilkou"));
                     getLogger().info("Error in quest " + QuestID + ", player dont have item");
                     rewlist.clear();
                     return false;
@@ -188,7 +188,7 @@ public class QuestUtils {
 
             Succes = true;
         } else{
-            player.sendMessage(Text.of(TextColors.RED,"Nesplnil jsi nekterou podminku Questu"));
+            player.sendMessage(Text.of(TextColors.RED,"You did not fulfill some of the conditions Quest"));
             player.sendMessage(Text.of(Quest_Name));
             player.sendMessage(Text.of(Quest_Lore));
         }
