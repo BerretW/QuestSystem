@@ -3,7 +3,8 @@ package io.appartus.questsystem;
 import com.google.common.reflect.TypeToken;
 import com.google.inject.Inject;
 import io.appartus.questsystem.Events.*;
-import io.appartus.questsystem.data.iscommandsign.*;
+import io.appartus.questsystem.data.iscommanddata.*;
+
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 import org.spongepowered.api.Game;
@@ -26,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
-import org.spongepowered.api.text.Text;
 
 /** Inital file
  * Created by Alois on 11.12.2016.
@@ -34,6 +34,8 @@ import org.spongepowered.api.text.Text;
 @Plugin(id="appartusquestsystem",name = "AppartusQuestSystem", version = "1.0")
 public class questsystem {
     public static final Key<Value<Boolean>> IS_COMMAND_SIGN = KeyFactory.makeSingleKey(new TypeToken<Boolean>() {} , new TypeToken<Value<Boolean>>() {}, DataQuery.of("IsCommandSign"), "commandsigns:is_command_sign", "Whether a sign is a CommandSign");
+    public static final Key<Value<Boolean>> IS_COMMAND_DATA = KeyFactory.makeSingleKey(new TypeToken<Boolean>() {} , new TypeToken<Value<Boolean>>() {}, DataQuery.of("IsCommandData"), "commandsigns:is_command_data", "Whether a sign has a Command Data");
+
     private List<String> Quest1_Req = new ArrayList<>();
     private List<String> Quest2_Req = new ArrayList<>();
     private List<String> Quest1_Rew = new ArrayList<>();
@@ -90,10 +92,10 @@ public class questsystem {
                 Quest1_Rew.add("Command||say Hrac si prave udelal prvni Tier");
                 Quest1_Rew.add("Command||pm users @p add group MAT1");
                 Quest1_Rew.add("Command||pm users @p set permission appartus.MAT1");
-                configNode.getNode("Quests","1","Quest Name").setValue("Learn Mystical Agriculture T2");
-                configNode.getNode("Quests","1","Quest Requirements").setValue(Quest1_Req);
-                configNode.getNode("Quests","1","Quest Reward").setValue(Quest1_Rew);
-                configNode.getNode("Quests","1","Quest Lore").setValue("Pro nauceni techto vedomosti je vzadovani mit level 30");
+                configNode.getNode("1","Quest Name").setValue("Learn Mystical Agriculture T1");
+                configNode.getNode("1","Quest Requirements").setValue(Quest1_Req);
+                configNode.getNode("1","Quest Reward").setValue(Quest1_Rew);
+                configNode.getNode("1","Quest Lore").setValue("Pro nauceni techto vedomosti je vzadovani mit level 30");
 
                 Quest2_Req.add("Level||30");
                 Quest2_Req.add("Item||minecraft:stone|1");
@@ -104,10 +106,10 @@ public class questsystem {
                 Quest2_Rew.add("Command||pm users @p add group MAT2");
                 Quest2_Rew.add("Command||pm users @p set permission appartus.MAT2");
                 Quest2_Rew.add("Item||minecraft:diamond|1");
-                configNode.getNode("Quests","2","Quest Name").setValue("Learn Mystical Agriculture T2");
-                configNode.getNode("Quests","2","Quest Requirements").setValue(Quest2_Req);
-                configNode.getNode("Quests","2","Quest Reward").setValue(Quest2_Rew);
-                configNode.getNode("Quests","2","Quest Lore").setValue("Pro nauceni techto vedomosti je vzadovani mit level 30");
+                configNode.getNode("2","Quest Name").setValue("Learn Mystical Agriculture T2");
+                configNode.getNode("2","Quest Requirements").setValue(Quest2_Req);
+                configNode.getNode("2","Quest Reward").setValue(Quest2_Rew);
+                configNode.getNode("2","Quest Lore").setValue("Pro nauceni techto vedomosti je vzadovani mit level 30");
                 configLoader.save(configNode);
                 getLogger().info("Config created");
             }
@@ -121,6 +123,7 @@ public class questsystem {
 
         game.getEventManager().registerListeners(this, new onInteractBlock() );
         // IsCommandSign
+        //Sponge.getDataManager().register();
         Sponge.getDataManager().register(IsCommandSignData.class, ImmutableIsCommandSignData.class, new IsCommandSignDataBuilder());
         Sponge.getDataManager().register(SpongeIsCommandSignData.class, ImmutableSpongeIsCommandSignData.class, new IsCommandSignDataBuilder());
     }

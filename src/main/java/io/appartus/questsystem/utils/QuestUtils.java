@@ -58,11 +58,13 @@ public class QuestUtils {
         List<String> reqlist;
         int Remove_Level = 0;
         String Quest_Lore;
-        pickNode = configNode().getNode("Quests",Integer.toString(QuestID),"Quest Reward");
+        String Quest_Name;
+        pickNode = configNode().getNode(Integer.toString(QuestID),"Quest Reward");
         rewlist = pickNode.getList(stringTransformer);
-        pickNode = configNode().getNode("Quests",Integer.toString(QuestID),"Quest Requirements");
+        pickNode = configNode().getNode(Integer.toString(QuestID),"Quest Requirements");
         reqlist = pickNode.getList(stringTransformer);
-        Quest_Lore = "Quest"+QuestID+" Lore: " + configNode().getNode("Quests",Integer.toString(QuestID),"Quest Lore").getString();
+        Quest_Name = configNode().getNode(Integer.toString(QuestID),"Quest Name").getString();
+        Quest_Lore = "Quest"+QuestID+" Lore: " + configNode().getNode(Integer.toString(QuestID),"Quest Lore").getString();
 
 
         Boolean Succes = false;
@@ -101,7 +103,7 @@ public class QuestUtils {
                     ok = HaveItemInHand(player, Item);
                     if (ok) itemsToRemove.add(Item);
                     else {
-                        player.sendMessage(Text.of(TextColors.RED, "Nemáš " + item + " pro splneni tohoto questu"));
+                        player.sendMessage(Text.of(TextColors.RED, "Nemáš " + Item.getItem().getName() + " pro splneni tohoto questu"));
                         //player.sendMessage(Text.of(Quest_Lore));
                         getLogger().info("Quest " + QuestID + ": Wrong or No Item");
                     }
@@ -187,6 +189,7 @@ public class QuestUtils {
             Succes = true;
         } else{
             player.sendMessage(Text.of(TextColors.RED,"Nesplnil jsi nekterou podminku Questu"));
+            player.sendMessage(Text.of(Quest_Name));
             player.sendMessage(Text.of(Quest_Lore));
         }
 
@@ -236,9 +239,12 @@ public class QuestUtils {
     }
 
     public Boolean HaveItemInHand(Player player,ItemStack item){
-        if(item == null) return false;
+        if (item == null) return false;
 
-        return player.getItemInHand(HandTypes.MAIN_HAND).isPresent() && item.equalTo(player.getItemInHand(HandTypes.MAIN_HAND).get());
+        if(player.getItemInHand(HandTypes.MAIN_HAND).isPresent()){
+            return item.equalTo(player.getItemInHand(HandTypes.MAIN_HAND).get());
+        }
+        return false;
     }
 
 
@@ -252,7 +258,8 @@ public class QuestUtils {
 
     private ItemStack StringToItemStack(String item, int count){
         if (item == null) return null;
-        if (item.equals("")) return null;
+        if (item == "") return null;
+        //getLogger().info(ItemStack.of(Sponge.getRegistry().getType(ItemType.class, item).get(), count).toString());
 
         if(Sponge.getRegistry().getType(ItemType.class, item).isPresent()){
             return ItemStack.of(Sponge.getRegistry().getType(ItemType.class, item).get(), count);

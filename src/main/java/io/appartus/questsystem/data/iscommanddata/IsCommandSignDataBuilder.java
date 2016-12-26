@@ -1,4 +1,4 @@
-package io.appartus.questsystem.data.iscommandsign;
+package io.appartus.questsystem.data.iscommanddata;
 
 import io.appartus.questsystem.questsystem;
 import org.spongepowered.api.data.DataHolder;

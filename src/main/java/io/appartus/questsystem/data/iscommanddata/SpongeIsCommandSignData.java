@@ -1,4 +1,4 @@
-package io.appartus.questsystem.data.iscommandsign;
+package io.appartus.questsystem.data.iscommanddata;
 
 import com.google.common.base.Preconditions;
 import io.appartus.questsystem.questsystem;

@@ -1,12 +1,11 @@
 package io.appartus.questsystem.utils;
 
-import io.appartus.questsystem.data.iscommandsign.IsCommandSignData;
-import io.appartus.questsystem.data.iscommandsign.SpongeIsCommandSignData;
+import io.appartus.questsystem.data.iscommanddata.IsCommandSignData;
+import io.appartus.questsystem.data.iscommanddata.SpongeIsCommandSignData;
 import org.spongepowered.api.block.tileentity.TileEntity;
 import org.spongepowered.api.block.tileentity.TileEntityTypes;
 import org.spongepowered.api.data.manipulator.mutable.tileentity.SignData;
 import org.spongepowered.api.text.Text;
-
 import java.util.Optional;
 
 /**Tile utils
